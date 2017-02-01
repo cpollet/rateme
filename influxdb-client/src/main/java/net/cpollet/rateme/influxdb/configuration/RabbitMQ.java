@@ -1,6 +1,7 @@
-package net.cpollet.rateme.influxdbClient.configuration;
+package net.cpollet.rateme.influxdb.configuration;
 
-import net.cpollet.rateme.influxdbClient.Receiver;
+import net.cpollet.rateme.influxdb.RatingService;
+import net.cpollet.rateme.influxdb.messaging.Receiver;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -27,7 +28,7 @@ import java.util.Properties;
 @Configuration
 public class RabbitMQ {
     @Autowired
-    private Receiver receiver;
+    private RatingService ratingService;
 
     @Bean
     public Properties configuration() {
@@ -76,6 +77,11 @@ public class RabbitMQ {
 
     @Bean
     public MessageListenerAdapter listenerAdapter() {
-        return new MessageListenerAdapter(receiver, "receiveMessage");
+        return new MessageListenerAdapter(receiver(), "receiveMessage");
+    }
+
+    @Bean
+    public Object receiver() {
+        return new Receiver(ratingService);
     }
 }

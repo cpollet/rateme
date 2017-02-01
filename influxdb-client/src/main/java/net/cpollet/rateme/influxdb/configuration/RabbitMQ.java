@@ -1,6 +1,7 @@
 package net.cpollet.rateme.influxdb.configuration;
 
-import net.cpollet.rateme.influxdb.RatingService;
+import net.cpollet.rateme.influxdb.DefaultRatingService;
+import net.cpollet.rateme.influxdb.messaging.RatingService;
 import net.cpollet.rateme.influxdb.messaging.Receiver;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -30,7 +31,7 @@ public class RabbitMQ {
     @Autowired
     private RatingService ratingService;
 
-    @Bean
+    @Bean(name = "rabbitmq.configuration")
     public Properties configuration() {
         Resource resource = new ClassPathResource("/rabbitmq.properties");
         try {
@@ -40,7 +41,7 @@ public class RabbitMQ {
         }
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.connectionFactory")
     public ConnectionFactory connectionFactory() {
         try {
             return new CachingConnectionFactory(new URI(configuration().getProperty("rabbitmq.uri")));
@@ -49,24 +50,24 @@ public class RabbitMQ {
         }
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.queue")
     public Queue queue() {
         return new Queue(configuration().getProperty("rabbitmq.queueName"), false);
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.exchange")
     public FanoutExchange exchange() {
         return new FanoutExchange(configuration().getProperty("rabbitmq.exchangeName"));
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.binding")
     public Binding binding() {
         return BindingBuilder
                 .bind(queue())
                 .to(exchange());
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.container")
     public SimpleMessageListenerContainer container() {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory());
@@ -75,12 +76,12 @@ public class RabbitMQ {
         return container;
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.listenerAdalter")
     public MessageListenerAdapter listenerAdapter() {
         return new MessageListenerAdapter(receiver(), "receiveMessage");
     }
 
-    @Bean
+    @Bean(name = "rabbitmq.receiver")
     public Object receiver() {
         return new Receiver(ratingService);
     }

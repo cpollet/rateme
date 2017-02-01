@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Created by cpollet on 01.02.17.
- * Handles messages in format context=xxx;rate=yyy;username=zzz
+ * Handles messages in format context=xxx;rate=1;username=zzz
  */
 public class DefaultRate implements Rate {
     private final String rate;

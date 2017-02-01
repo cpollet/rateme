@@ -1,4 +1,4 @@
-package net.cpollet.rateme.influxdb.messaging;
+package net.cpollet.rateme.influxdb;
 
 import net.cpollet.rateme.influxdb.Rate;
 

@@ -1,7 +1,6 @@
 package net.cpollet.rateme.influxdb.messaging;
 
 import lombok.extern.log4j.Log4j;
-import net.cpollet.rateme.influxdb.RatingService;
 
 import java.io.UnsupportedEncodingException;
 import java.util.concurrent.CountDownLatch;

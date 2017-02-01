@@ -1,7 +1,12 @@
+# URLs:
+#    - rabbitmq admin   http://localhost:8080
+#    - influxdb admin   http://localhost:8083
+#    - grafana          http://admin:admin@localhost:3000
+
 influxdb:
     image: influxdb
     volumes:
-        - ./influxdb.conf:/etc/influxdb/influxdb.conf:ro
+        - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
     ports:
         - "8083:8083"
         - "8086:8086"
@@ -13,3 +18,12 @@ grafana:
         - influxdb:influxdb
     ports:
         - "3000:3000"
+
+rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+        - "4369:4369"
+        - "5671:5671"
+        - "5672:5672"
+        - "15671:15671"
+        - "8080:15672"

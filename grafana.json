@@ -520,8 +520,8 @@
               "format": "short",
               "label": "Votes per munite",
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "max": "100",
+              "min": "0",
               "show": true
             },
             {
@@ -687,5 +687,5 @@
   },
   "timezone": "browser",
   "title": "Data",
-  "version": 5
+  "version": 6
 }

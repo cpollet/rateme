@@ -20,7 +20,7 @@
           "datasource": null,
           "decimals": null,
           "fill": 1,
-          "height": "300",
+          "height": "275",
           "hideTimeOverride": false,
           "id": 1,
           "legend": {
@@ -32,7 +32,7 @@
             "max": true,
             "min": true,
             "rightSide": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": true
           },
@@ -42,7 +42,7 @@
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 1,
-          "points": true,
+          "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 10,
@@ -184,7 +184,7 @@
           "timeShift": null,
           "title": "Satisfaction index per application",
           "tooltip": {
-            "shared": true,
+            "shared": false,
             "sort": 0,
             "value_type": "individual"
           },
@@ -193,7 +193,9 @@
             "mode": "time",
             "name": null,
             "show": true,
-            "values": []
+            "values": [
+              "avg"
+            ]
           },
           "yaxes": [
             {
@@ -218,17 +220,23 @@
           "aliasColors": {},
           "bars": true,
           "datasource": null,
+          "decimals": null,
           "fill": 1,
-          "height": "300",
-          "id": 5,
+          "height": "275",
+          "hideTimeOverride": false,
+          "id": 6,
           "legend": {
-            "avg": false,
+            "alignAsTable": false,
+            "avg": true,
             "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
             "max": false,
             "min": false,
+            "rightSide": false,
             "show": false,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": false,
           "linewidth": 1,
@@ -240,23 +248,24 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 2,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "alias": "account",
               "dsType": "influxdb",
               "groupBy": [
                 {
                   "params": [
-                    "1m"
+                    "10s"
                   ],
                   "type": "time"
                 },
                 {
                   "params": [
-                    "context"
+                    "previous"
                   ],
-                  "type": "tag"
+                  "type": "fill"
                 }
               ],
               "measurement": "rates",
@@ -273,45 +282,146 @@
                   },
                   {
                     "params": [],
-                    "type": "count"
+                    "type": "mean"
                   }
                 ]
               ],
-              "tags": []
+              "tags": [
+                {
+                  "key": "context",
+                  "operator": "=",
+                  "value": "account"
+                }
+              ]
+            },
+            {
+              "alias": "profile",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "rates",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "context",
+                  "operator": "=",
+                  "value": "profile"
+                }
+              ]
+            },
+            {
+              "alias": "signup",
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "rates",
+              "policy": "default",
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "context",
+                  "operator": "=",
+                  "value": "signup"
+                }
+              ]
             }
           ],
-          "thresholds": [],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": false,
+              "line": true,
+              "op": "lt",
+              "value": 0.4
+            }
+          ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Votes per minute",
+          "title": "Satisfaction index per application",
           "tooltip": {
-            "shared": true,
+            "shared": false,
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": false,
           "type": "graph",
           "xaxis": {
-            "mode": "time",
+            "mode": "series",
             "name": null,
             "show": true,
-            "values": []
+            "values": [
+              "avg"
+            ]
           },
           "yaxes": [
             {
               "format": "short",
-              "label": "Votes per munite",
+              "label": "Satisfaction",
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "max": "1",
+              "min": "0",
               "show": true
             },
             {
               "format": "short",
               "label": null,
               "logBase": 1,
-              "max": null,
-              "min": null,
+              "max": "1",
+              "min": "0",
               "show": false
             }
           ]
@@ -326,14 +436,14 @@
     },
     {
       "collapse": false,
-      "height": 250,
+      "height": 204,
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
           "datasource": null,
           "fill": 1,
-          "height": "300",
+          "height": "275",
           "id": 3,
           "legend": {
             "alignAsTable": false,
@@ -397,7 +507,15 @@
               "tags": []
             }
           ],
-          "thresholds": [],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": false,
+              "op": "lt",
+              "value": 0.4
+            }
+          ],
           "timeFrom": null,
           "timeShift": null,
           "title": "General satisfaction index",
@@ -437,7 +555,228 @@
           "bars": true,
           "datasource": null,
           "fill": 1,
-          "height": "300",
+          "height": "275",
+          "id": 7,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 2,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "10s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "previous"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "rates",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": false,
+              "line": true,
+              "op": "lt",
+              "value": 0.4
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "General satisfaction index",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "series",
+            "name": null,
+            "show": true,
+            "values": [
+              "avg"
+            ]
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Average",
+              "logBase": 1,
+              "max": "1",
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 318,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "fill": 1,
+          "height": "275",
+          "id": 4,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 8,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "context"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "rates",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Rates in real time",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Rate",
+              "logBase": 1,
+              "max": "1",
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "datasource": null,
+          "fill": 1,
+          "height": "275",
           "id": 2,
           "legend": {
             "avg": false,
@@ -533,34 +872,19 @@
               "show": false
             }
           ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "height": 250,
-      "panels": [
+        },
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "datasource": null,
           "fill": 1,
-          "id": 4,
+          "height": "275",
+          "id": 5,
           "legend": {
-            "alignAsTable": false,
             "avg": false,
             "current": false,
-            "hideEmpty": false,
-            "hideZero": false,
             "max": false,
             "min": false,
-            "rightSide": false,
             "show": false,
             "total": false,
             "values": false
@@ -571,16 +895,22 @@
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 1,
-          "points": true,
+          "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
-          "stack": false,
+          "span": 2,
+          "stack": true,
           "steppedLine": false,
           "targets": [
             {
               "dsType": "influxdb",
               "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
                 {
                   "params": [
                     "context"
@@ -599,21 +929,33 @@
                       "rate"
                     ],
                     "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
                   }
                 ]
               ],
               "tags": []
             }
           ],
-          "thresholds": [],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": true,
+              "op": "gt"
+            }
+          ],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Rates in real time",
+          "title": "Votes per minute",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
+          "transparent": false,
           "type": "graph",
           "xaxis": {
             "mode": "time",
@@ -624,10 +966,10 @@
           "yaxes": [
             {
               "format": "short",
-              "label": "Rate",
+              "label": "Votes per munite",
               "logBase": 1,
-              "max": "1",
-              "min": "0",
+              "max": null,
+              "min": null,
               "show": true
             },
             {
@@ -687,5 +1029,5 @@
   },
   "timezone": "browser",
   "title": "Data",
-  "version": 7
+  "version": 8
 }

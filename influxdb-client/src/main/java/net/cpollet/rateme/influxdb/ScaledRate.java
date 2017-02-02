@@ -8,7 +8,7 @@ public class ScaledRate implements Rate {
     private final long min;
     private final long max;
 
-    public ScaledRate(Rate rate, long min, long max) {
+    public ScaledRate(Rate rate, int min, int max) {
         this.rate = rate;
         this.min = min;
         this.max = max;
@@ -21,7 +21,7 @@ public class ScaledRate implements Rate {
 
     @Override
     public Number rate() {
-        double localRate = rate.rate().longValue() - min;
+        double localRate = rate.rate().intValue() - min;
         double localMax = max - min;
 
         return localRate / localMax;

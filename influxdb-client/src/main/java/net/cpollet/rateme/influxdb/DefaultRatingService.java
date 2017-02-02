@@ -10,10 +10,10 @@ import net.cpollet.rateme.influxdb.messaging.RatingService;
 public class DefaultRatingService implements RatingService {
     private final RateFactory rateFactory;
     private final Store store;
-    private final long min;
-    private final long max;
+    private final int min;
+    private final int max;
 
-    public DefaultRatingService(RateFactory rateFactory, Store store, long min, long max) {
+    public DefaultRatingService(RateFactory rateFactory, Store store, int min, int max) {
         this.rateFactory = rateFactory;
         this.store = store;
         this.min = min;

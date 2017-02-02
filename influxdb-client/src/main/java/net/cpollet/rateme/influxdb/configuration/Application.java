@@ -7,6 +7,7 @@ import net.cpollet.rateme.influxdb.messaging.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
@@ -46,8 +47,8 @@ public class Application {
 
     @Bean
     public RatingService ratingService() {
-        long min = Long.valueOf(configuration().getProperty("rateme.rate.min"));
-        long max = Long.valueOf(configuration().getProperty("rateme.rate.max"));
+        int min = Integer.parseInt(configuration().getProperty("rateme.rate.min"));
+        int max = Integer.parseInt(configuration().getProperty("rateme.rate.max"));
         return new DefaultRatingService(rateConverter(), store, min, max);
     }
 }

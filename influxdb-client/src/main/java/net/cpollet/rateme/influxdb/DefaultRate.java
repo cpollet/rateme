@@ -39,7 +39,7 @@ public class DefaultRate implements Rate {
 
     @Override
     public Number rate() {
-        return Long.parseLong(parse().get("rate"));
+        return Integer.parseInt(parse().get("rate"));
     }
 
     @Override

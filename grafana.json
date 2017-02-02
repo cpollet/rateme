@@ -337,15 +337,15 @@
           "id": 3,
           "legend": {
             "alignAsTable": false,
-            "avg": false,
-            "current": false,
+            "avg": true,
+            "current": true,
             "hideEmpty": false,
             "hideZero": false,
-            "max": false,
-            "min": false,
+            "max": true,
+            "min": true,
             "show": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
@@ -687,5 +687,5 @@
   },
   "timezone": "browser",
   "title": "Data",
-  "version": 6
+  "version": 7
 }

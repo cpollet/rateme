@@ -45,7 +45,7 @@
           "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 8,
+          "span": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -220,7 +220,7 @@
           "datasource": null,
           "fill": 1,
           "height": "300",
-          "id": 2,
+          "id": 5,
           "legend": {
             "avg": false,
             "current": false,
@@ -239,7 +239,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 4,
+          "span": 2,
           "stack": true,
           "steppedLine": false,
           "targets": [
@@ -356,7 +356,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 12,
+          "span": 10,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -420,6 +420,108 @@
               "logBase": 1,
               "max": "1",
               "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "datasource": null,
+          "fill": 1,
+          "height": "300",
+          "id": 2,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": true,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 2,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dsType": "influxdb",
+              "groupBy": [
+                {
+                  "params": [
+                    "1m"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "context"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "rates",
+              "policy": "default",
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "count"
+                  }
+                ]
+              ],
+              "tags": []
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Votes per minute",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": false,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Votes per munite",
+              "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
@@ -585,5 +687,5 @@
   },
   "timezone": "browser",
   "title": "Data",
-  "version": 4
+  "version": 5
 }

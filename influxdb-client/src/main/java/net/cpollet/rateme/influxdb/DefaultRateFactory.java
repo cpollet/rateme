@@ -3,9 +3,9 @@ package net.cpollet.rateme.influxdb;
 /**
  * Created by cpollet on 01.02.17.
  */
-public class DefaultRateConverter implements RateConverter {
+public class DefaultRateFactory implements RateFactory {
     @Override
-    public Rate convert(String string) {
+    public Rate create(String string) {
         return new DefaultRate(string);
     }
 }

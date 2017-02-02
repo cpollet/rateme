@@ -6,7 +6,7 @@ package net.cpollet.rateme.influxdb;
 public interface Rate {
     String context();
 
-    String rate();
+    Number rate();
 
     String username();
 }

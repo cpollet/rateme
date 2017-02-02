@@ -36,7 +36,7 @@ public class InfluxDB {
 
             return influxDBProperties;
         } catch (IOException e) {
-            throw new RuntimeException("Unable to start application, missing rabbitmq.properties file");
+            throw new RuntimeException("Unable to start application, missing influxdb.properties file");
         }
     }
 
